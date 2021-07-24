@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 use RadicalLoop\Eod\Config;
 use RadicalLoop\Eod\Eod;
@@ -33,7 +34,7 @@ class ExchangeTest extends TestCase
         $this->assertTrue(is_array($data));
         $this->assertNotEmpty($data);
 
-        $this->assertCount(6, $data[0]);
+        $this->assertGreaterThanOrEqual(6, count($data[0]));
 
         $this->assertArrayHasKey('Code', $data[0]);
         $this->assertArrayHasKey('Name', $data[0]);
@@ -75,14 +76,14 @@ class ExchangeTest extends TestCase
         $content = $this->root->getChild('test.csv')->getContent();
         $this->assertNotEmpty($content);
     }
-    
-     /** @test **/
-     public function details()
-     {
-         $content = $this->exchange->details('US')->json();
-         $data = json_decode($content, true);
- 
-         $this->assertTrue(is_array($data));
-         $this->assertNotEmpty($data);
-     }
+
+    /** @test **/
+    public function details()
+    {
+        $content = $this->exchange->details('US')->json();
+        $data = json_decode($content, true);
+
+        $this->assertTrue(is_array($data));
+        $this->assertNotEmpty($data);
+    }
 }
